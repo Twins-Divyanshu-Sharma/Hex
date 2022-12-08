@@ -3,6 +3,7 @@
 Hexagons::Hexagons()
 {
     mesh.createHexagonMesh();
+    backgroundMesh.createHexagonBackgroundMesh();
 }
 
 Hexagons::~Hexagons()
@@ -23,6 +24,21 @@ int Hexagons::meshIndicesCount()
     return mesh.getNumOfIndices();
 }
 
+void Hexagons::useBgMesh()
+{
+    backgroundMesh.use();
+}
+
+void Hexagons::unuseBgMesh()
+{
+    backgroundMesh.unuse();
+}
+
+int Hexagons::bgMeshIndicesCount()
+{
+    return backgroundMesh.getNumOfIndices();
+}
+
 void Hexagons::insert(float x, float y, float r, float g, float b, float size)
 {
   this->x.push_back(x);  
@@ -31,4 +47,5 @@ void Hexagons::insert(float x, float y, float r, float g, float b, float size)
   this->g.push_back(g);
   this->b.push_back(b);
   this->size.push_back(size);
+  this->str.push_back("");
 }

@@ -1,7 +1,7 @@
 #include "Win.h"
 
-
-
+char Win::currentChar = ' ';
+bool Win::charInputEvent = false;
 
 Win::Win()
 {
@@ -26,6 +26,9 @@ void Win::createWindow()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER,1); 
+    glfwWindowHint(GLFW_FLOATING, GL_TRUE);
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    glfwWindowHint(GLFW_DECORATED, GL_FALSE);
     glfwWindow = glfwCreateWindow(width,height,"Hex", NULL, NULL);
 
     
@@ -39,13 +42,20 @@ void Win::createWindow()
 
     glfwMakeContextCurrent(glfwWindow);
     glViewport(0,0,width,height);
-
+    
     glfwSetFramebufferSizeCallback(glfwWindow,resize);
+    glfwSetCharCallback(glfwWindow, char_callback);
 }
 
 void Win::resize(GLFWwindow* window, int width, int height)
 {
     glViewport(0,0,width,height);
+}
+
+void Win::char_callback(GLFWwindow* window, unsigned int codepoint)
+{
+    currentChar = (char)codepoint;
+    charInputEvent = true;
 }
 
 bool Win::isClosed()
@@ -55,9 +65,12 @@ bool Win::isClosed()
 
 void Win::pollEvents()
 {
-    if(glfwGetKey(glfwWindow, GLFW_KEY_ESCAPE)==GLFW_PRESS)
-        glfwSetWindowShouldClose(glfwWindow,true);
     glfwPollEvents();
+}
+
+void Win::close()
+{
+    glfwSetWindowShouldClose(glfwWindow,true);
 }
 
 void Win::swapBuffers()
@@ -84,3 +97,4 @@ float Win::getAspectRatio()
 {
     return (float)width/(float)height;
 }
+

@@ -1,10 +1,16 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
+#include <unistd.h>
 #include "Win.h"
 #include <time.h>
 #include "HexagonRenderer.h"
 #include "Hexagons.h"
+#include "FontRenderer.h"
+#include "FontAtlas.h"
+
+#define INSERT 0
+#define VISUAL 1
 
 class Engine
 {
@@ -25,7 +31,28 @@ class Engine
 
         HexagonRenderer hexagonRenderer;
         Hexagons hexagons;
+        FontAtlas fontAtlas;
+        FontRenderer fontRenderer;
         
+        int mode = INSERT;
+
+        void insertModeInput();
+        void visualModeInput();
+
+        bool keyActive = false;
+        int selectedHexagonIndex = 1;
+        bool modeChange = false;
+
+        int selectedHexagon = 2;
+        int side = 0; // 0 top, 1 bot
+                      //
+
+        bool hPressed=false,jPressed=false,kPressed=false,lPressed=false;
+        bool enterPressed=false;
+
+        std::string typedString;
+        bool escapePressed=false, backspacePressed=false;
+        bool searchStringChanged=false;
 };
 
 #endif

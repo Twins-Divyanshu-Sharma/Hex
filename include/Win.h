@@ -17,11 +17,15 @@ class Win
         bool keyPressed(int);
         bool keyReleased(int);
         float getAspectRatio();
+        void close();
+        static char currentChar;
+        static bool charInputEvent;
     private:
-        int width = 1366;
-        int height = 786;
+        int width = 700;
+        int height = 700;
         GLFWwindow* glfwWindow;
         static void resize(GLFWwindow*, int, int);
+        static void char_callback(GLFWwindow*,unsigned int);
 
 };
 

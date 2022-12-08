@@ -98,3 +98,10 @@ void ShaderProgram::setUniform(std::string uniformName, float r, float g, float 
 {
     glUniform3f(uniformMap[uniformName], r, g, b);
 }
+
+
+void ShaderProgram::setUniform(std::string uniformName, float r, float g, float b, float a)
+{
+    glUniform4f(uniformMap[uniformName], r, g, b, a);
+}
+

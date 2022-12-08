@@ -12,6 +12,7 @@ class Mesh
         unsigned int vao, vbo, ebo;
         int numOfIndices = 0;
         void generate(std::vector<float>&, std::vector<unsigned int>&);
+        void generateWithTexture(std::vector<float>&, std::vector<unsigned int>&);
     public:
         Mesh();
         ~Mesh();
@@ -20,6 +21,8 @@ class Mesh
         int getNumOfIndices();
 
         void createHexagonMesh();
+        void createQuadMesh();
+        void createHexagonBackgroundMesh();
 
 };
 

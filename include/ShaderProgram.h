@@ -26,6 +26,7 @@ class ShaderProgram
         void setUniform(std::string, float);
         void setUniform(std::string, float, float);
         void setUniform(std::string, float, float, float);
+        void setUniform(std::string, float, float, float, float);
 };
 
 #endif

@@ -15,6 +15,7 @@ class HexagonRenderer
         ~HexagonRenderer();
         void render(Mesh* mesh);
         void render(Hexagons& hexagons);
+        void renderBg(Hexagons& hexagons, int selectedIndex);
 };
 
 #endif
