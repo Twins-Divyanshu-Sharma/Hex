@@ -9,6 +9,7 @@
 #include "FontRenderer.h"
 #include "FontAtlas.h"
 #include <cstdlib>
+#include <algorithm>
 
 #define INSERT 0
 #define VISUAL 1

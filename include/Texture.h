@@ -14,7 +14,7 @@ private:
 	std::string name;
 public:
 	Texture();
-	Texture(std::string);
+	Texture(std::string name);
 	~Texture();
 	unsigned int getTextureId();
 	std::string& getName();

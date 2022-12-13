@@ -1,8 +1,10 @@
 #include "ShaderProgram.h"
 
+
+
 ShaderProgram::ShaderProgram(std::string name): name(name)
 {
-    std::string path = "res/shaders/";
+    std::string path = std::string("/usr/share/Hex/") + "res/shaders/";
 	std::string vertexFile(path + name + ".vs");
 	std::string fragmentFile(path + name + ".fs");
 	programID = glCreateProgram();

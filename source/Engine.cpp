@@ -21,7 +21,7 @@ Engine::Engine() : window()
       }
     }
 
-    loop();
+   loop();
 }
 
 Engine::~Engine()
@@ -182,6 +182,9 @@ void Engine::visualModeInput()
     {
         enterPressed = true;
         std::string command = std::string(hexagons.str[selectedHexagon] + " &");
+        std::cout << "=============== command ===============" << std::endl;
+        std::cout << command.c_str() << std::endl;
+        std::cout << "======================================" << std::endl;
         system(command.c_str());
         window.close();
     }
@@ -269,11 +272,13 @@ void Engine::updateHexagonStrings()
             int stringIndex = 0;
             int startIndex = 0;
             char ch;
-            while((ch = res[stringIndex]) != '\0') 
+            ch = res[stringIndex];
+            while(ch != '\0' && ch != '\n') 
             {
                if(stringIndex-1 >= 0 && res[stringIndex-1] == '/') 
                    startIndex = stringIndex;
                 stringIndex++;
+                ch = res[stringIndex];
             }
             for(int j=startIndex; j<stringIndex; j++)
                 pName += res[j];
@@ -283,14 +288,27 @@ void Engine::updateHexagonStrings()
 
         status = pclose(fp);
     }
-    
+
+    std::sort(progName.begin(),progName.end());
+    std::vector<std::string> sortedProgName;
+    for(unsigned int i=0; i<progName.size(); i++)
+    {
+        if(searchString.compare(progName[i]) == 0)
+            sortedProgName.push_back(progName[i]);
+    }
+
+    for(unsigned int i=0; i<progName.size(); i++)
+    {
+        if(searchString.compare(progName[i]) != 0)
+            sortedProgName.push_back(progName[i]);
+    }   
     int next[6] = {2,3,6,5,4,1}; 
     // hexagons are arranged that way,
     // changing it will change hjkl motion, so dont change
     for(unsigned int i=0; i<6; i++)
     {
-        if(i < progName.size())
-            hexagons.str[next[i]] = progName[i];
+        if(i < sortedProgName.size())
+            hexagons.str[next[i]] = sortedProgName[i];
         else
             hexagons.str[next[i]] = "";
     }

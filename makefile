@@ -6,6 +6,7 @@ srcDir =source
 incDir =include
 bldDir =build
 binDir =binary
+resDir =res
 
 cc =g++
 incl = -I$(incDir)
@@ -32,3 +33,10 @@ clean:
 
 purge:	clean
 	@rm -rf $(binDir)
+
+install: 
+	@mkdir -p /usr/share/Hex
+	@mkdir -p /usr/share/Hex/res
+	@cp -r $(resDir)/* /usr/share/Hex/res/
+	@cp $(binDir)/$(prog) /usr/bin/
+

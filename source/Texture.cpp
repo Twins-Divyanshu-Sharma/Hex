@@ -8,7 +8,7 @@ Texture::Texture()
 
 Texture::Texture(std::string name)
 {
-	std::string path = "res/textures/" + name + ".png";
+	std::string path = std::string("/usr/share/Hex/") + "res/textures/" + name + ".png";
 	this->name = name;
 
 	const char* cTarget = path.c_str();
