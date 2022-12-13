@@ -4,7 +4,12 @@
 
 ShaderProgram::ShaderProgram(std::string name): name(name)
 {
-    std::string path = std::string("/usr/share/Hex/") + "res/shaders/";
+    #if HEX_DEBUG == 0
+    #define prependPath "/usr/share/Hex/"
+    #else
+    #define prependPath ""
+    #endif
+    std::string path = std::string(prependPath) + "res/shaders/";
 	std::string vertexFile(path + name + ".vs");
 	std::string fragmentFile(path + name + ".fs");
 	programID = glCreateProgram();

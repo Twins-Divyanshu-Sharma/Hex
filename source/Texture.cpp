@@ -8,7 +8,12 @@ Texture::Texture()
 
 Texture::Texture(std::string name)
 {
-	std::string path = std::string("/usr/share/Hex/") + "res/textures/" + name + ".png";
+    #if HEX_DEBUG == 0
+    #define prependPath "/usr/share/Hex/"
+    #else
+    #define prependPath ""
+    #endif
+	std::string path = std::string(prependPath) + "res/textures/" + name + ".png";
 	this->name = name;
 
 	const char* cTarget = path.c_str();
