@@ -8,6 +8,7 @@
 #include "Hexagons.h"
 #include "FontRenderer.h"
 #include "FontAtlas.h"
+#include <cstdlib>
 
 #define INSERT 0
 #define VISUAL 1
@@ -53,6 +54,9 @@ class Engine
         std::string typedString;
         bool escapePressed=false, backspacePressed=false;
         bool searchStringChanged=false;
+        std::vector<std::string> pathList;
+
+        void updateHexagonStrings();
 };
 
 #endif

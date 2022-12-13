@@ -2,6 +2,25 @@
 
 Engine::Engine() : window()
 {
+    std::string path = std::getenv("PATH");
+    
+    
+    int start=0; 
+    for(int end=0; end<path.size(); end++)
+    {
+      if(path[end] == ':')
+      {
+        std::string t = path.substr(start,end-start);
+        pathList.push_back(t);
+        start = end+1;
+      }
+      else if(end == path.size() -1)
+      {
+          std::string t = path.substr(start,end-start+1);
+          pathList.push_back(t);
+      }
+    }
+
     loop();
 }
 
@@ -50,12 +69,6 @@ void Engine::init()
     // 1 2 3
     // 4 5 6
     fontAtlas.setAtlas("hexFontAtlas");
-
-    hexagons.str[1] = "firefox";
-    hexagons.str[2] = "vlc";
-    hexagons.str[3] = "okular";
-    hexagons.str[4] = "cool-retro-term";
-    hexagons.str[5] = "pulseaudio";
 }
 
 void Engine::input()
@@ -203,12 +216,20 @@ void Engine::update()
                hexagons.b[i] = 0.04f;
            }
        }
+
+       if(searchStringChanged)
+       {
+           searchStringChanged = false;
+
+       }
    }
 
    if(searchStringChanged)
    {
         searchStringChanged = false;
         // update strings of other hexagons;
+        if(typedString.size() > 0)
+            updateHexagonStrings();
    }
 }
 
@@ -225,4 +246,53 @@ void Engine::render(double dt)
 void Engine::clean()
 {
     
+}
+
+void Engine::updateHexagonStrings()
+{
+    FILE *fp;
+    int status;
+
+    std::string searchString=typedString; 
+    std::vector<std::string> progName;
+    for(unsigned int i=0; i<pathList.size(); i++)
+    {
+        std::string command("find " + pathList[i] + " -name *" + searchString + "*");  
+        fp = popen(command.c_str(), "r");
+        const int bufferLen = 256;
+        char res[bufferLen];
+        
+        while(fgets(res, bufferLen, fp) != NULL)
+        {
+            std::string pName = "";
+
+            int stringIndex = 0;
+            int startIndex = 0;
+            char ch;
+            while((ch = res[stringIndex]) != '\0') 
+            {
+               if(stringIndex-1 >= 0 && res[stringIndex-1] == '/') 
+                   startIndex = stringIndex;
+                stringIndex++;
+            }
+            for(int j=startIndex; j<stringIndex; j++)
+                pName += res[j];
+            progName.push_back(pName);
+ 
+        }
+
+        status = pclose(fp);
+    }
+    
+    int next[6] = {2,3,6,5,4,1}; 
+    // hexagons are arranged that way,
+    // changing it will change hjkl motion, so dont change
+    for(unsigned int i=0; i<6; i++)
+    {
+        if(i < progName.size())
+            hexagons.str[next[i]] = progName[i];
+        else
+            hexagons.str[next[i]] = "";
+    }
+
 }
