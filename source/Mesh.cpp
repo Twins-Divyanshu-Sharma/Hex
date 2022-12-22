@@ -129,7 +129,7 @@ void Mesh::createHexagonBackgroundMesh()
     generate(vertexData, indices);
 }
 
-void Mesh::createQuadMesh()
+void Mesh::createLetterQuadMesh()
 {
       std::vector<float> vertexData = {
         // vertex       // texture
@@ -151,6 +151,23 @@ void Mesh::createQuadMesh()
     std::vector<unsigned int> indices = {
         0, 1, 2, 2, 1, 3,
  //       0, 1, 3, 3, 1, 2
+    };
+
+    generateWithTexture(vertexData, indices);
+}
+
+void Mesh::createScreenQuadMesh()
+{
+    std::vector<float> vertexData = {
+        // vertex       //texture
+        -1.0f, 1.0f,    0.0f, 1.0f,
+        1.0f, 1.0f,     1.0f, 1.0f,
+        1.0f, -1.0f,    1.0f, 0.0f,
+        -1.0f, -1.0f,   0.0f, 0.0f,
+    };
+
+    std::vector<unsigned int> indices = {
+        0, 1, 3, 3, 1, 2 
     };
 
     generateWithTexture(vertexData, indices);

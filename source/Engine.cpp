@@ -58,6 +58,8 @@ void Engine::loop()
 
 void Engine::init()
 {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
     glClearColor(0,0,0,0);
     hexagons.insert(0,0, 0,0.83f,0.79f, 0.35f);
     hexagons.insert(-0.55f,0.35f, 0.39f,0.33f,0.21f, 0.35f); // 1
@@ -69,6 +71,10 @@ void Engine::init()
     // 1 2 3
     // 4 5 6
     fontAtlas.setAtlas("hexFontAtlas");
+
+    screenQuad.createScreenQuadMesh();
+    worldFBO.attachTexture(window.getWidth(), window.getHeight());
+    worldFBO.lockAttachments();
 }
 
 void Engine::input()
@@ -238,11 +244,16 @@ void Engine::update()
 
 void Engine::render(double dt)
 {
+    worldFBO.bind();
     glClear(GL_COLOR_BUFFER_BIT);
     int renderBgIndex = (mode == VISUAL) ? selectedHexagon : 10;
     hexagonRenderer.renderBg(hexagons,renderBgIndex);
     hexagonRenderer.render(hexagons);
     fontRenderer.render(fontAtlas, hexagons, 0.0f, 0.5f, 0.8f);
+    worldFBO.unbind();
+    
+    screenQuadRenderer.render(screenQuad, worldFBO);
+
     window.swapBuffers();
 }
 

@@ -19,8 +19,6 @@ FontRenderer::~FontRenderer()
 
 void FontRenderer::render(FontAtlas& fontAtlas, Hexagons& hexagons, float r, float g, float b)
 {
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     shader.use();
     fontAtlas.useFontMesh();
     shader.setUniform("atlas", 0);
@@ -68,5 +66,4 @@ void FontRenderer::render(FontAtlas& fontAtlas, Hexagons& hexagons, float r, flo
     fontAtlas.unuseFontMesh();
     shader.unuse();
 
-    glDisable(GL_BLEND);
 }

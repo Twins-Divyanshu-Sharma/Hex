@@ -29,7 +29,7 @@ FontAtlas::FontAtlas()
     yOffset['y'] = 0.25f;
     yOffset[','] = 0.25f;
 
-    mesh.createQuadMesh();
+    mesh.createLetterQuadMesh();
 
 }
 

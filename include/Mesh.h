@@ -21,8 +21,10 @@ class Mesh
         int getNumOfIndices();
 
         void createHexagonMesh();
-        void createQuadMesh();
+        void createLetterQuadMesh();
         void createHexagonBackgroundMesh();
+
+        void createScreenQuadMesh();
 
 };
 

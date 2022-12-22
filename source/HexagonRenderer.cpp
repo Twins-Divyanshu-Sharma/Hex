@@ -5,6 +5,7 @@ HexagonRenderer::HexagonRenderer() : shader("hexagon")
     shader.mapUniform("color");
     shader.mapUniform("position");
     shader.mapUniform("size");
+    shader.mapUniform("neon");
 }
 
 HexagonRenderer::~HexagonRenderer()
@@ -18,6 +19,7 @@ void HexagonRenderer::render(Mesh* mesh)
     shader.setUniform("position", 0, 0);
     shader.setUniform("color", 0, 0, 1.0f);
     shader.setUniform("size", 1.0f);
+    shader.setUniform("neon", 1.0f);
     mesh->use();
     glEnableVertexAttribArray(0);
     glDrawElements(GL_TRIANGLES, mesh->getNumOfIndices(), GL_UNSIGNED_INT, 0);
@@ -58,7 +60,7 @@ void HexagonRenderer::renderBg(Hexagons& hexagons, int selectedIndex)
        shader.setUniform("color",0.0f, 0.0f, 0.0f, 0.8f);
        if(selectedIndex >= 0 && selectedIndex == i)
        {
-            shader.setUniform("color", 0.1f, 0.1f, 0.1f, 0.8f);
+            shader.setUniform("color", 0.1f, 0.1f, 0.1f, 0.2f);
        }
        shader.setUniform("size", hexagons.size[i]);
 

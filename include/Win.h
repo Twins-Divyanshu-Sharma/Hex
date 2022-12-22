@@ -20,6 +20,8 @@ class Win
         void close();
         static char currentChar;
         static bool charInputEvent;
+        int getWidth();
+        int getHeight();
     private:
         int width = 700;
         int height = 700;

@@ -10,6 +10,8 @@
 #include "FontAtlas.h"
 #include <cstdlib>
 #include <algorithm>
+#include "FBO.h"
+#include "ScreenQuadRenderer.h"
 
 #define INSERT 0
 #define VISUAL 1
@@ -58,6 +60,10 @@ class Engine
         std::vector<std::string> pathList;
 
         void updateHexagonStrings();
+    
+        Mesh screenQuad;
+        FBO worldFBO;
+        ScreenQuadRenderer screenQuadRenderer;
 };
 
 #endif

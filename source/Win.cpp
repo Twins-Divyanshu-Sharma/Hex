@@ -98,3 +98,12 @@ float Win::getAspectRatio()
     return (float)width/(float)height;
 }
 
+int Win::getWidth()
+{
+    return width;
+}
+
+int Win::getHeight()
+{
+    return height;
+}
