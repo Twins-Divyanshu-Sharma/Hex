@@ -5,6 +5,7 @@
 #include <vector>
 #include "Mesh.h"
 #include "Hexagons.h"
+#include "Color.h"
 
 class HexagonRenderer
 {
@@ -14,8 +15,8 @@ class HexagonRenderer
         HexagonRenderer();
         ~HexagonRenderer();
         void render(Mesh* mesh);
-        void render(Hexagons& hexagons);
-        void renderBg(Hexagons& hexagons, int selectedIndex);
+        void render(Hexagons& hexagons, float ortho[16]);
+        void renderBg(Hexagons& hexagons, int selectedIndex, float ortho[16], Color& visualColor);
 };
 
 #endif

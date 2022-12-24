@@ -9,12 +9,13 @@ binDir =binary
 resDir =res
 
 cc =g++
-incl = -I$(incDir)
+incl =-I$(incDir)
 lib =-lGL -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -ldl -lXinerama -lXcursor
-flag =-pthread
+flag =-pthread -MP -MD
 
 classes =$(shell find $(srcDir) -name "*.cpp")
 objects =$(patsubst $(srcDir)/%, $(bldDir)/%, $(classes:.cpp=.o))
+dependencies =$(patsubst $(bldDir)/%, $(bldDir)/%, $(objects:.o=.d))
 
 all:	directories $(prog)
 
@@ -40,3 +41,4 @@ install:
 	@cp -r $(resDir)/* /usr/share/Hex/res/
 	@cp $(binDir)/$(prog) /usr/bin/
 
+-include $(dependencies)

@@ -5,6 +5,7 @@
 #include "FontAtlas.h"
 #include "ShaderProgram.h"
 #include "Hexagons.h"
+#include "Color.h"
 
 class FontRenderer
 {
@@ -13,7 +14,7 @@ class FontRenderer
     public:
         FontRenderer();
         ~FontRenderer();
-        void render(FontAtlas& fontAtlas, Hexagons& hexagons, float r, float g, float b);
+        void render(FontAtlas& fontAtlas, Hexagons& hexagons, float ortho[16], Color& textColor, Color& selectedTextColor, unsigned int selectedIndex);
 };
 
 #endif

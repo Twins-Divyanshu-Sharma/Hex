@@ -58,23 +58,47 @@ void Engine::loop()
 
 void Engine::init()
 {
+    float right=10, left=-10, top=10, bottom=-10, far=10, near = -10;
+    
+    ortho[0] = 2/(right-left);
+    ortho[3] = -(right+left)/(right-left);
+    ortho[5] = 2/(top-bottom);
+    ortho[7] = -(top+bottom)/(top-bottom);
+    ortho[10] = -2/(far-near);
+    ortho[11] = -(far+near)/(far-near);
+    ortho[15] = 1;
+
+    float r=disabledColor.r, g=disabledColor.g, b=disabledColor.b, size=3.0f;
+    float radius = 6;
+    double root3 = sqrt(3);
+    float root3by2 = (float)(root3/2.0f);
+
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
     glClearColor(0,0,0,0);
-    hexagons.insert(0,0, 0,0.83f,0.79f, 0.35f);
-    hexagons.insert(-0.55f,0.35f, 0.39f,0.33f,0.21f, 0.35f); // 1
-    hexagons.insert(0,0.7f, 0.39f,0.33f,0.21f, 0.35f); // 2
-    hexagons.insert(0.55f,0.35f, 0.39f,0.33f,0.21f, 0.35f); // 3
-    hexagons.insert(-0.55f,-0.35f, 0.39f,0.33f,0.21f, 0.35f); // 4
-    hexagons.insert(0,-0.7f, 0.39f,0.33f,0.21f, 0.35f); // 5
-    hexagons.insert(0.55f,-0.35f, 0.39f,0.33f,0.21f, 0.35f); // 6
+    hexagons.insert(0,0, insertColor.r, insertColor.g, insertColor.b, size);
+    hexagons.insert(-root3by2*radius, 0.5*radius, r, g, b, size); // 1
+    hexagons.insert(0.0,    radius,   r, g, b, size); // 2
+    hexagons.insert(root3by2*radius, 0.5*radius,  r, g, b, size); // 3
+    hexagons.insert(-root3by2*radius,-0.5*radius, r, g, b, size); // 4
+    hexagons.insert(0.0, -radius, r, g, b, size); // 5
+    hexagons.insert(root3by2*radius,-0.5*radius, r, g, b, size); // 6
     // 1 2 3
     // 4 5 6
     fontAtlas.setAtlas("hexFontAtlas");
 
     screenQuad.createScreenQuadMesh();
     worldFBO.attachTexture(window.getWidth(), window.getHeight());
+    worldFBO.attachTexture(window.getWidth(), window.getHeight());
     worldFBO.lockAttachments();
+
+
+    ping.attachTexture(window.getWidth(), window.getHeight());
+    ping.lockAttachments();
+
+    pong.attachTexture(window.getWidth(), window.getHeight());
+    pong.lockAttachments();
+    
 }
 
 void Engine::input()
@@ -131,14 +155,17 @@ void Engine::visualModeInput()
         keyActive = true;
         window.close();
     }
-    if(window.keyPressed(GLFW_KEY_I) && !keyActive)
+    if(window.keyPressed(GLFW_KEY_I) && !iPressed)
     {
-        keyActive = true;
+        iPressed = true;
         mode = INSERT;
         modeChange = true;
     }
-    if(window.keyReleased(GLFW_KEY_I) && keyActive)
-        keyActive = false;
+    if(window.keyReleased(GLFW_KEY_I) && iPressed)
+    {
+        iPressed = false;
+    }
+
 
     if(window.keyPressed(GLFW_KEY_H) && !hPressed)
     {
@@ -203,26 +230,26 @@ void Engine::update()
        modeChange = false;
        if(mode == INSERT)
        {
-           hexagons.r[0] = 0.06f;
-           hexagons.g[0] = 0.83f;
-           hexagons.b[0] = 0.79f;
+           hexagons.r[0] = insertColor.r;
+           hexagons.g[0] = insertColor.g;
+           hexagons.b[0] = insertColor.b;
            for(int i=1; i<7; i++)
            {
-                hexagons.r[i] = 0.39f;
-                hexagons.g[i] = 0.33f;
-                hexagons.b[i] = 0.21f;
+                hexagons.r[i] = disabledColor.r;
+                hexagons.g[i] = disabledColor.g;
+                hexagons.b[i] = disabledColor.b;
            }
        }
        else if(mode == VISUAL)
        {
-           hexagons.r[0] = 0.0f;
-           hexagons.g[0] = 0.3f;
-           hexagons.b[0] = 0.25f;
+           hexagons.r[0] = disabledColor.r;
+           hexagons.g[0] = disabledColor.g;
+           hexagons.b[0] = disabledColor.b;
            for(int i=1; i<7; i++)
            {
-               hexagons.r[i] = 0.89f;
-               hexagons.g[i] = 0.61f;
-               hexagons.b[i] = 0.04f;
+               hexagons.r[i] = visualColor.r;
+               hexagons.g[i] = visualColor.g;
+               hexagons.b[i] = visualColor.b;
            }
        }
 
@@ -245,14 +272,23 @@ void Engine::update()
 void Engine::render(double dt)
 {
     worldFBO.bind();
+    glClearColor(0,0,0,0);
     glClear(GL_COLOR_BUFFER_BIT);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     int renderBgIndex = (mode == VISUAL) ? selectedHexagon : 10;
-    hexagonRenderer.renderBg(hexagons,renderBgIndex);
-    hexagonRenderer.render(hexagons);
-    fontRenderer.render(fontAtlas, hexagons, 0.0f, 0.5f, 0.8f);
-    worldFBO.unbind();
+    hexagonRenderer.renderBg(hexagons,renderBgIndex, ortho,visualColor);
+    hexagonRenderer.render(hexagons, ortho);
+   worldFBO.unbind();
+
+    bloomRenderer.render(screenQuad, worldFBO, ping, pong);  
     
-    screenQuadRenderer.render(screenQuad, worldFBO);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    screenQuadRenderer.render(screenQuad, worldFBO, pong);
+    fontRenderer.render(fontAtlas, hexagons, ortho, textColor, selectedTextColor, renderBgIndex);
+  
 
     window.swapBuffers();
 }

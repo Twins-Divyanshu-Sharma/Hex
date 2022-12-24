@@ -13,7 +13,7 @@ class ScreenQuadRenderer
     public:
         ScreenQuadRenderer();
         ~ScreenQuadRenderer();
-        void render(Mesh& mesh, FBO& fbo);
+        void render(Mesh& mesh, FBO& fbo, FBO& blurFBO);
 };
 
 #endif

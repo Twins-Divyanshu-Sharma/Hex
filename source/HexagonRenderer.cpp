@@ -6,6 +6,7 @@ HexagonRenderer::HexagonRenderer() : shader("hexagon")
     shader.mapUniform("position");
     shader.mapUniform("size");
     shader.mapUniform("neon");
+    shader.mapUniform("ortho");
 }
 
 HexagonRenderer::~HexagonRenderer()
@@ -28,7 +29,7 @@ void HexagonRenderer::render(Mesh* mesh)
 }
 
 
-void HexagonRenderer::render(Hexagons& hexagons)
+void HexagonRenderer::render(Hexagons& hexagons, float ortho[16])
 {
     shader.use();
     hexagons.useMesh();
@@ -39,7 +40,8 @@ void HexagonRenderer::render(Hexagons& hexagons)
        shader.setUniform("position", hexagons.x[i], hexagons.y[i]);
        shader.setUniform("color", hexagons.r[i], hexagons.g[i], hexagons.b[i], 1.0f);
        shader.setUniform("size", hexagons.size[i]);
-
+       shader.setUniform("neon", 1.0f);
+       shader.setUniform("ortho", ortho);
        glDrawElements(GL_TRIANGLES, hexagons.meshIndicesCount(), GL_UNSIGNED_INT, 0); 
     }
 
@@ -48,7 +50,7 @@ void HexagonRenderer::render(Hexagons& hexagons)
     shader.unuse();
 }
 
-void HexagonRenderer::renderBg(Hexagons& hexagons, int selectedIndex)
+void HexagonRenderer::renderBg(Hexagons& hexagons, int selectedIndex, float ortho[16], Color& visualColor)
 {
     shader.use();
     hexagons.useBgMesh();
@@ -57,14 +59,21 @@ void HexagonRenderer::renderBg(Hexagons& hexagons, int selectedIndex)
     for(unsigned int i=0; i<hexagons.x.size(); i++)
     {
        shader.setUniform("position", hexagons.x[i], hexagons.y[i]);
-       shader.setUniform("color",0.0f, 0.0f, 0.0f, 0.8f);
-       if(selectedIndex >= 0 && selectedIndex == i)
-       {
-            shader.setUniform("color", 0.1f, 0.1f, 0.1f, 0.2f);
-       }
-       shader.setUniform("size", hexagons.size[i]);
-
+       shader.setUniform("color",0.0f, 0.0f, 0.0f, 1.0f);
+       shader.setUniform("neon", 0.0f);
+       shader.setUniform("size", hexagons.size[i]+0.15f*hexagons.size[i]);
+       shader.setUniform("ortho", ortho);
        glDrawElements(GL_TRIANGLES, hexagons.bgMeshIndicesCount(), GL_UNSIGNED_INT, 0); 
+    }
+
+    if(selectedIndex >= 0 )
+    {
+        shader.setUniform("position", hexagons.x[selectedIndex], hexagons.y[selectedIndex]);
+        shader.setUniform("color", visualColor.r, visualColor.g, visualColor.b, 1.0f);
+        shader.setUniform("neon", 0.0f);
+        shader.setUniform("size", hexagons.size[selectedIndex]);
+        shader.setUniform("ortho", ortho);
+        glDrawElements(GL_TRIANGLES, hexagons.bgMeshIndicesCount(), GL_UNSIGNED_INT, 0); 
     }
 
     glDisableVertexAttribArray(0);

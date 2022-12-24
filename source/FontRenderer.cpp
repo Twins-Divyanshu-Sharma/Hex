@@ -12,31 +12,40 @@ FontRenderer::FontRenderer() : shader("font")
 
     shader.mapUniform("debug");
     shader.mapUniform("scale");
+    shader.mapUniform("ortho");
 }
 
 FontRenderer::~FontRenderer()
 {}
 
-void FontRenderer::render(FontAtlas& fontAtlas, Hexagons& hexagons, float r, float g, float b)
+void FontRenderer::render(FontAtlas& fontAtlas, Hexagons& hexagons, float ortho[16], Color& textColor, Color& selectedTextColor, unsigned int selectedIndex)
 {
     shader.use();
     fontAtlas.useFontMesh();
     shader.setUniform("atlas", 0);
-    shader.setUniform("textColor", r, g, b);
     shader.setUniform("scale", 0.25f);
+    shader.setUniform("ortho", ortho);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, fontAtlas.getTextureId());
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
-    float gap = 0.2f;
+    float gap = 1.0f;
     
     for(unsigned int h=0; h<7; h++)
     {
+        if(h == selectedIndex)
+        {
+            shader.setUniform("textColor", selectedTextColor.r, selectedTextColor.g, selectedTextColor.b);
+        }
+        else
+        {
+            shader.setUniform("textColor", textColor.r, textColor.g, textColor.b);
+        }
         std::string str = hexagons.str[h];
         float posX = hexagons.x[h];
         float posY = hexagons.y[h];
         shader.setUniform("position",posX,posY);
-        shader.setUniform("shift",0.0f - str.length()*0.1/2.0f,0.0f);
+        shader.setUniform("shift",0.0f - str.length()/2.0f,0.0f);
         float totalWidth = 0;
         for(unsigned int i=0; i<str.length(); i++)
         {
@@ -44,7 +53,7 @@ void FontRenderer::render(FontAtlas& fontAtlas, Hexagons& hexagons, float r, flo
             float width = (fontAtlas.width.find(ch) == fontAtlas.width.end()) ? 1.0f : fontAtlas.width[ch];
             shader.setUniform("size", width, 1.0f);
             float yOffset = (fontAtlas.yOffset.find(ch) == fontAtlas.width.end() ? 0.0f : fontAtlas.yOffset[ch]);
-            shader.setUniform("offset", totalWidth, -yOffset*0.2f);
+            shader.setUniform("offset", totalWidth, -yOffset*2);
             int yIndex = (ch - ' ')/16;
             int xIndex = (ch - ' ')%16;
             shader.setUniform("index", (float)xIndex, (float)yIndex); 
@@ -57,11 +66,11 @@ void FontRenderer::render(FontAtlas& fontAtlas, Hexagons& hexagons, float r, flo
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); 
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     */
-            totalWidth += (width + gap)*0.1f;
+            totalWidth += (width + gap)*0.5f;
         }
      
     }
-   glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(0);
     fontAtlas.unuseFontMesh();
     shader.unuse();

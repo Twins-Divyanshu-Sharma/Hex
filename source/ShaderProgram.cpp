@@ -112,3 +112,8 @@ void ShaderProgram::setUniform(std::string uniformName, float r, float g, float 
     glUniform4f(uniformMap[uniformName], r, g, b, a);
 }
 
+void ShaderProgram::setUniform(std::string uniformName, const float ortho[16])
+{
+    glUniformMatrix4fv(uniformMap[uniformName], 1, GL_FALSE, ortho);
+}
+

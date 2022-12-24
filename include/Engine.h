@@ -12,6 +12,8 @@
 #include <algorithm>
 #include "FBO.h"
 #include "ScreenQuadRenderer.h"
+#include "BloomRenderer.h"
+#include "Color.h"
 
 #define INSERT 0
 #define VISUAL 1
@@ -25,6 +27,8 @@ class Engine
         Win window;
         double fps = 120.0f;
         double millisecPerUpdate = 1000.0f/fps;
+
+        float ortho[16] = {0};
         
         void init();
         void clean();
@@ -53,6 +57,7 @@ class Engine
 
         bool hPressed=false,jPressed=false,kPressed=false,lPressed=false;
         bool enterPressed=false;
+        bool iPressed=false;
 
         std::string typedString;
         bool escapePressed=false, backspacePressed=false;
@@ -62,8 +67,15 @@ class Engine
         void updateHexagonStrings();
     
         Mesh screenQuad;
-        FBO worldFBO;
+        FBO worldFBO, ping, pong;
         ScreenQuadRenderer screenQuadRenderer;
+        BloomRenderer bloomRenderer;
+        
+        Color insertColor = {0.06f, 0.83f, 0.79f};
+        Color visualColor = {0.89f, 0.1f, 0.04f};
+        Color disabledColor = {0.01f,0.01f,0.01f};
+        Color textColor = {0.06f, 0.83f, 0.79f};
+        Color selectedTextColor = {0,0,0};
 };
 
 #endif

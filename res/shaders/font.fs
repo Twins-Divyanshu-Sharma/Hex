@@ -28,9 +28,9 @@ void main()
     outColor = color;
     outColor.rgb *= textColor;
 
+
     if(outColor.a < 0.25)
         discard;
-
 }
 
 

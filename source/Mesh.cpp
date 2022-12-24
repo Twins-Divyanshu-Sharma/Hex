@@ -131,23 +131,22 @@ void Mesh::createHexagonBackgroundMesh()
 
 void Mesh::createLetterQuadMesh()
 {
-      std::vector<float> vertexData = {
+/*    std::vector<float> vertexData = {
         // vertex       // texture
         -0.05f, 0.1f,  0.0f, 0.125f, // 0
         0.05f, 0.1f,   0.0625f, 0.125f,// 1
         -0.05f, -0.1f,  0.0f, 0.0f,// 2
         0.05f, -0.1f,  0.0625f, 0.0f,// 3
     };
-
-/*  
+*/
     std::vector<float> vertexData = {
-        -1.0f, 1.0f, 0.0f, 1.0f, // 0
-        1.0f, 1.0f, 1.0f, 1.0f,  // 1
-        1.0f, -1.0f, 1.0f, 0.0f, // 2
-        -1.0f, -1.0f, 0.0f, 0.0f, // 3
+        // vertex       // texture
+        -0.5f, 1.0f,    0.0f, 0.125f,       // 0
+        0.5f, 1.0f,     0.0625f, 0.125f,    // 1
+        -0.5f, -1.0f,   0.0f, 0.0f,         // 2
+        0.5f, -1.0f,    0.0625f, 0.0f,      // 3
     };
 
-*/
     std::vector<unsigned int> indices = {
         0, 1, 2, 2, 1, 3,
  //       0, 1, 3, 3, 1, 2

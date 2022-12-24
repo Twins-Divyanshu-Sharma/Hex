@@ -35,7 +35,6 @@ void FBO::attachTexture(unsigned int width, unsigned int height)
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + texIDSize, GL_TEXTURE_2D, texID[texIDSize], 0);
 
     texIDSize++;
-
     unbind();
 
 }
@@ -61,7 +60,7 @@ unsigned int FBO::getAttachment(unsigned int x)
         return texID[x];
     else
     {
-        std::cerr << "fbo attachment index out of bounds" << std::endl;
+        std::cerr << "fbo attachment index " << x << " out of bounds" << std::endl;
         return 0;
     }
 }

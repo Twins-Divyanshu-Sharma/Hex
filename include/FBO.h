@@ -4,7 +4,7 @@
 #include "allgl.h"
 #include <iostream>
 
-#define max_attachments 4
+#define max_attachments 8
 
 class FBO
 {
