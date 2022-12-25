@@ -72,10 +72,14 @@ class Engine
         BloomRenderer bloomRenderer;
         
         Color insertColor = {0.06f, 0.83f, 0.79f};
-        Color visualColor = {0.89f, 0.1f, 0.04f};
+        Color visualColor = {5.0f, 0.20f, 0.04f};
         Color disabledColor = {0.01f,0.01f,0.01f};
         Color textColor = {0.06f, 0.83f, 0.79f};
         Color selectedTextColor = {0,0,0};
+
+        bool tabPressed = false;
+        bool ignore = false;
+        
 };
 
 #endif

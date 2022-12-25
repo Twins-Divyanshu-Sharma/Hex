@@ -44,6 +44,7 @@ void Engine::loop()
         prev = clock();
 
         input();
+        //newInput();
         while(lag >= millisecPerUpdate)
         {
             update();
@@ -103,6 +104,23 @@ void Engine::init()
 
 void Engine::input()
 {
+    if(window.keyPressed(GLFW_KEY_ESCAPE) && !escapePressed)
+    {
+        escapePressed = true;
+        window.close();
+    }
+
+    if(window.keyPressed(GLFW_KEY_TAB) && !tabPressed)
+    {
+        tabPressed = true;
+        mode = (mode+1)%2;
+        modeChange = true;
+        ignore = true;
+    }
+    else if(window.keyReleased(GLFW_KEY_TAB) && tabPressed)
+        tabPressed = false;
+
+
 
     if(mode == INSERT)
     {
@@ -115,17 +133,8 @@ void Engine::input()
     window.pollEvents();
 }
 
-void Engine::insertModeInput()
-{
-    if(window.keyPressed(GLFW_KEY_ESCAPE) && !escapePressed)
-    {
-        escapePressed = true;
-        mode = VISUAL;
-        modeChange = true;
-    }
-    if(window.keyReleased(GLFW_KEY_ESCAPE) && escapePressed)
-        escapePressed = false;
-    
+void Engine::insertModeInput() {
+   
     if(window.keyPressed(GLFW_KEY_BACKSPACE) && !backspacePressed) 
     {
         backspacePressed = true;
@@ -138,7 +147,7 @@ void Engine::insertModeInput()
         backspacePressed = false;
 
     
-    if(Win::charInputEvent)
+    if(Win::charInputEvent && !ignore)
     {
         Win::charInputEvent = false;
         typedString += Win::currentChar;
@@ -146,26 +155,13 @@ void Engine::insertModeInput()
         searchStringChanged = true;
     }
 
+    if(ignore)
+        Win::charInputEvent = ignore = false;
+
 }
 
 void Engine::visualModeInput()
 {
-    if(window.keyPressed(GLFW_KEY_Q) && !keyActive)
-    {
-        keyActive = true;
-        window.close();
-    }
-    if(window.keyPressed(GLFW_KEY_I) && !iPressed)
-    {
-        iPressed = true;
-        mode = INSERT;
-        modeChange = true;
-    }
-    if(window.keyReleased(GLFW_KEY_I) && iPressed)
-    {
-        iPressed = false;
-    }
-
 
     if(window.keyPressed(GLFW_KEY_H) && !hPressed)
     {
