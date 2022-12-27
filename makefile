@@ -32,7 +32,7 @@ $(bldDir)/%.o:	$(srcDir)/%.cpp
 clean:
 	@rm -rf $(bldDir)
 
-purge:	clean
+remove:	clean
 	@rm -rf $(binDir)
 
 install: 
@@ -40,5 +40,10 @@ install:
 	@mkdir -p /usr/share/Hex/res
 	@cp -r $(resDir)/* /usr/share/Hex/res/
 	@cp $(binDir)/$(prog) /usr/bin/
+	@chmod +x /usr/bin/$(prog)
+
+purge:
+	@rm -r /usr/share/Hex	
+	@rm /usr/bin/$(prog)
 
 -include $(dependencies)

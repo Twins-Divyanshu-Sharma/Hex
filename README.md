@@ -15,6 +15,10 @@ Check requirements section first
 3. sudo make install
 4. type Hex in terminal
 
+## Uninstall
+1. cd to your cloned repo
+2. sudo make purge
+
 ## Navigation
 You can exit program any time by pressing escape\
 The program has two modes which can be switched using tab: \
