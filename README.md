@@ -34,3 +34,11 @@ Visual mode ( orange one in screenshots )
 1. Disable shadows for Hex(this program) on your compositor
 2. If you are using i3, it applies ugly border to the window, to remove that you will have to add following line in the end of i3config: for_window [class="Hex"] border pixel 0
 
+
+## I need simpler fonts
+Follow these steps in your cloned repo to get simpler fonts.
+1. edit source/Engine.cpp
+2. inside the function void Engine::init() find the line: fontAtlas.setAtlas("defaultFontAtlas")
+3. comment this line, just above it is a commented line: fontAtlas.setAtlas("hexFontAtlas"), uncomment it
+4. all this does is changes the default font atlas in res/textures/defaultFontAtlas.png to res/textures/hexFontAtlas.png, you can add your own fontAtlas here, just use gimp or photoshop and make sure you draw letters exactly on top of defaultFontAtlas.png, that is letters should have same width and height and spacing between them. Put it in res/textures/yourFA.png then change line: fontAtlas.setAtlas("yourFA") note donot write .png
+5. redo the instructions for Install above and you are done
