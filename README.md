@@ -1,7 +1,7 @@
 # Hex
 A hexagonal application launcher.\
 An application launcher which has vim like navigation for linux users. Yes fellow i3 lovers and mouse haters, we dont need mouse anymore!!!\
-Not conviced? Perhaps the screenshots will attract your attention
+Not convinced? Perhaps the screenshots will attract your attention
 
 ## Screenshots
 ![2022-12-27-130722_1366x768_scrot](https://user-images.githubusercontent.com/47611483/209641801-ac893155-b805-48eb-9198-e98840da76aa.png)
