@@ -86,7 +86,9 @@ void Engine::init()
     hexagons.insert(root3by2*radius,-0.5*radius, r, g, b, size); // 6
     // 1 2 3
     // 4 5 6
-    fontAtlas.setAtlas("hexFontAtlas");
+
+    //fontAtlas.setAtlas("hexFontAtlas");
+    fontAtlas.setAtlas("defaultFontAtlas");
 
     screenQuad.createScreenQuadMesh();
     worldFBO.attachTexture(window.getWidth(), window.getHeight());

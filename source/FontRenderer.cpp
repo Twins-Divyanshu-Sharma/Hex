@@ -23,7 +23,7 @@ void FontRenderer::render(FontAtlas& fontAtlas, Hexagons& hexagons, float ortho[
     shader.use();
     fontAtlas.useFontMesh();
     shader.setUniform("atlas", 0);
-    shader.setUniform("scale", 0.25f);
+    shader.setUniform("scale", scale);
     shader.setUniform("ortho", ortho);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, fontAtlas.getTextureId());

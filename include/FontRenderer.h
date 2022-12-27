@@ -11,6 +11,9 @@ class FontRenderer
 {
     private:
         ShaderProgram shader;
+        float scale = 0.3f;
+        // clean all 
+        // Q O i n s t x \ / 1 4 5
     public:
         FontRenderer();
         ~FontRenderer();
