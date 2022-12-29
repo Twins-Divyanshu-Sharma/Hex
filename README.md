@@ -28,7 +28,7 @@ Visual mode ( orange one in screenshots )
 2. Visual mode: Main navigation takes place here. In your mind split outer hexagons in two halves, top 3 and bottom 3, then:\
 2.1. The keys k and j are used to switch between upper and lower halves\
 2.2. The key h will shift the selected hexagon to the left hexagon in the half and key l will shift selected hexagon to right hexagon in the half.\
-2.3. Press enter to execute the selected program (works only in visual mode). For example in the screenshots, pressing enter will execute vlc media player. Beware it does not executes cli programs like nmtui (poweroff and reboot works though).
+2.3. Press enter to execute the selected program (works only in visual mode). For example in the 3rd screenshot, pressing enter will launch firefox web browser. Beware it does not executes cli programs like nmtui (poweroff and reboot works though).
 
 ## Requirements
 1. This program uses glfw, so make sure you have it in your linux machine. Either download from your package manager or build it from source (visit their official webpage).
@@ -39,10 +39,10 @@ Visual mode ( orange one in screenshots )
 2. If you are using i3, it applies ugly border to the window, to remove that you will have to add following line in the end of i3config: for_window [class="Hex"] border pixel 0
 
 
-## I need simpler fonts
-Follow these steps in your cloned repo to get simpler fonts.
+## I need my own fonts
+Follow these steps in your cloned repo to install your own fonts.
 1. edit source/Engine.cpp
-2. inside the function void Engine::init() find the line: fontAtlas.setAtlas("defaultFontAtlas")
-3. comment this line, just above it is a commented line: fontAtlas.setAtlas("hexFontAtlas"), uncomment it
-4. all this does is changes the default font atlas in res/textures/defaultFontAtlas.png to res/textures/hexFontAtlas.png, you can add your own fontAtlas here, just use gimp or photoshop and make sure you draw letters exactly on top of defaultFontAtlas.png, that is letters should have same width and height and spacing between them. Put it in res/textures/yourFA.png then change line: fontAtlas.setAtlas("yourFA") note donot write .png
+2. inside the function void Engine::init() find the line: fontAtlas.setAtlas("circuitFontAtlas") comment int out
+3. in place of this line add the line: fontAtlas.setAtlas("your_fonts") : where your_fonts is a png file of your font atlas kept in res/textures/ folder of your cloned repo, note: donot write .png in the arguements
+4. To create your own fontAtlas, just use gimp or photoshop and make sure you draw letters exactly on top of circuitFontAtlas.png in res/textures/, that is letters should have same width and height and spacing between them. Put it in res/textures/your_fonts.png then change line: fontAtlas.setAtlas("your_fonts") note donot write .png
 5. redo the instructions for Install above and you are done

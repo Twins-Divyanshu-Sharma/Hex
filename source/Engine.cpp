@@ -88,7 +88,8 @@ void Engine::init()
     // 4 5 6
 
     //fontAtlas.setAtlas("hexFontAtlas");
-    fontAtlas.setAtlas("defaultFontAtlas");
+    //fontAtlas.setAtlas("defaultFontAtlas");
+    fontAtlas.setAtlas("circuitFontAtlas");
 
     screenQuad.createScreenQuadMesh();
     worldFBO.attachTexture(window.getWidth(), window.getHeight());
