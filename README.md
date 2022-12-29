@@ -1,12 +1,13 @@
 # Hex
 A hexagonal application launcher.\
-An application launcher which has vim like navigation for linux users. Yes fellow i3 lovers and mouse haters, we dont need mouse anymore!!!\
+An application launcher which has vim like navigation for linux users. Yes fellow i3 lovers, vim like navigation for application launcher !!!\
 Not convinced? Perhaps the screenshots will attract your attention
 
 ## Screenshots
-![2022-12-27-130722_1366x768_scrot](https://user-images.githubusercontent.com/47611483/209641801-ac893155-b805-48eb-9198-e98840da76aa.png)
+![2022-12-29-142025_1366x768_scrot](https://user-images.githubusercontent.com/47611483/209930901-322ff594-c5ea-4934-98a8-e7900596cccc.png)
+![2022-12-29-142059_1366x768_scrot](https://user-images.githubusercontent.com/47611483/209930922-2ac65f34-382b-4ddd-83c7-9533d54e1bf0.png)
+![firefoxLaunch](https://user-images.githubusercontent.com/47611483/209930932-535040a1-7b34-4480-b4c4-7e3af0c7d6ec.jpg)
 
-![2022-12-27-130819_1366x768_scrot](https://user-images.githubusercontent.com/47611483/209641813-e5ced698-6630-4b0f-9d8f-ac2fe1360991.png)
 
 ## Installtion
 Check requirements section first
