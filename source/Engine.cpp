@@ -3,8 +3,21 @@
 Engine::Engine() : window()
 {
     std::string path = std::getenv("PATH");
-    
-    
+    Config config;
+    if(!config.failedLoading())
+    {
+        auto colorMap = config.getValues();
+        insertColor = colorMap["insertColor"];
+        visualColor = colorMap["visualColor"];
+        disabledColor = colorMap["disabledColor"];        
+        textColor = colorMap["textColor"];
+        selectedTextColor = colorMap["selectedTextColor"];
+    }
+    else
+    {
+        std::cerr << "Failed to load config, using default values" << std::endl;
+    }
+
     int start=0; 
     for(int end=0; end<path.size(); end++)
     {

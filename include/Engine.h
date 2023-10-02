@@ -14,6 +14,7 @@
 #include "ScreenQuadRenderer.h"
 #include "BloomRenderer.h"
 #include "Color.h"
+#include "Config.h"
 
 #define INSERT 0
 #define VISUAL 1
@@ -71,11 +72,13 @@ class Engine
         ScreenQuadRenderer screenQuadRenderer;
         BloomRenderer bloomRenderer;
         
-        Color insertColor = {0.06f, 0.83f, 0.79f};
-        Color visualColor = {5.0f, 0.20f, 0.04f};
+        Color insertColor = {0.06f, 0.03f, 0.01f};
+        Color visualColor = {0.05f, 0.20f, 0.04f};
         Color disabledColor = {0.01f,0.01f,0.01f};
+        
         Color textColor = {0.06f, 0.83f, 0.79f};
         Color selectedTextColor = {0,0,0};
+
 
         bool tabPressed = false;
         bool ignore = false;

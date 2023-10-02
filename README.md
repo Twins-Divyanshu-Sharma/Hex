@@ -14,7 +14,8 @@ Check requirements section first
 1. git clone this repo
 2. make
 3. sudo make install
-4. type Hex in terminal
+4. copy config file from res/config to ~/.config/Hex/ with same name i.e. config
+5. type Hex in terminal
 
 ## Uninstall
 1. cd to your cloned repo
