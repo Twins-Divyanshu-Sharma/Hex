@@ -48,3 +48,16 @@ Follow these steps in your cloned repo to install your own fonts.
 3. in place of this line add the line: fontAtlas.setAtlas("your_fonts") : where your_fonts is a png file of your font atlas kept in res/textures/ folder of your cloned repo, note: donot write .png in the arguements
 4. To create your own fontAtlas, just use gimp or photoshop and make sure you draw letters exactly on top of circuitFontAtlas.png in res/textures/, that is letters should have same width and height and spacing between them. Put it in res/textures/your_fonts.png then change line: fontAtlas.setAtlas("your_fonts") note donot write .png
 5. redo the instructions for Install above and you are done
+
+
+## Customising Neon Colors
+Copy config file in res folder of git repo to $HOME/.config/Hex/config (name should remain config).
+The config enables you to customize colors in Hex. The pattern is as follows:\
+variableName = r g b\
+where spaces are neccessary and r g b are color values of red green and blue respectively ranging between 0 and 255
+The following variables can be edited:
+1.  visualColor: It is the color of the outer rings in visual mode.
+2.  insertColor: It is the color of inner ring in insert mode.
+3.  disabledColor: It is color of disabled rings (ie outer rings in insert mode and inner ring in visual mode).
+4.  textColor: It is the color of text while you are typing and of suggestions being displayed in outer ring.
+5.  selectedTextColor: It is the color of text which is selected in visual mode.
