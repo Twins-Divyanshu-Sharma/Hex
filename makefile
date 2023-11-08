@@ -10,7 +10,7 @@ resDir =res
 
 cc =g++
 incl =-I$(incDir)
-lib =-lGL -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -ldl -lXinerama -lXcursor
+lib =-lGL -lglfw -lX11 -lXxf86vm -lXrandr -lpthread -ldl -lXinerama -lXcursor
 flag =-pthread -MP -MD
 
 classes =$(shell find $(srcDir) -name "*.cpp")
