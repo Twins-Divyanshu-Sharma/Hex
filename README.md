@@ -1,5 +1,5 @@
 # Hex
-An application launcher which has vim like navigation for linux users. 
+A hexagonal application launcher which has vim like navigation for linux users. 
 
 ## Screenshots
 ![2022-12-29-142025_1366x768_scrot](https://user-images.githubusercontent.com/47611483/209930901-322ff594-c5ea-4934-98a8-e7900596cccc.png)
