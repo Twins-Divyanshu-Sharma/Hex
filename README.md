@@ -1,6 +1,10 @@
 # Hex
 A hexagonal application launcher which has vim like navigation for linux users. 
 
+## Video
+https://github.com/Twins-Diwakar-Sharma/Hex/assets/47611483/0f5f62dc-481e-45b5-a154-e1e447d1d3cb
+
+
 ## Screenshots
 ![2022-12-29-142025_1366x768_scrot](https://user-images.githubusercontent.com/47611483/209930901-322ff594-c5ea-4934-98a8-e7900596cccc.png)
 ![2022-12-29-142059_1366x768_scrot](https://user-images.githubusercontent.com/47611483/209930922-2ac65f34-382b-4ddd-83c7-9533d54e1bf0.png)
