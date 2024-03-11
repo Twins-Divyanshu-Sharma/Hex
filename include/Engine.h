@@ -82,6 +82,16 @@ class Engine
 
         bool tabPressed = false;
         bool ignore = false;
+
+        void goLeft();
+        void goRight();
+        void goUp();
+        void goDown();
+
+        void visualInputHJKL();
+        void visualInputArrows();
+
+        bool leftPressed=false,rightPressed=false,upPressed=false,downPressed=false;
         
 };
 
