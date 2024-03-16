@@ -18,11 +18,13 @@ class Config
         std::map<std::string,Color> colorMap;
         void hdr(Color&);
         void attainValues();
+        int iconState=1;
     public:
         Config();
         ~Config();
         std::map<std::string,Color>& getValues();
         bool failedLoading();
+        int getIconState();
 };
 
 #endif

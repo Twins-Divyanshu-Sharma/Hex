@@ -12,6 +12,7 @@ Engine::Engine() : window()
         disabledColor = colorMap["disabledColor"];        
         textColor = colorMap["textColor"];
         selectedTextColor = colorMap["selectedTextColor"];
+        iconState = config.getIconState();
     }
     else
     {
@@ -364,8 +365,12 @@ void Engine::render(double dt)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     screenQuadRenderer.render(screenQuad, worldFBO, pong);
     fontRenderer.render(fontAtlas, hexagons, ortho, textColor, selectedTextColor, renderBgIndex);
-  
-
+     
+    if(iconState > 0) 
+    {
+      iconRenderer.render(hexagons, ortho, textColor, selectedTextColor, renderBgIndex, iconState);
+    }
+    
     window.swapBuffers();
 }
 
@@ -434,6 +439,48 @@ void Engine::updateHexagonStrings()
             hexagons.str[next[i]] = sortedProgName[i];
         else
             hexagons.str[next[i]] = "";
+    }
+
+    if(iconState > 0)
+    {
+      for(unsigned int i=0; i<6; i++)
+      {
+        if(i < sortedProgName.size() )
+        {
+          // find icon 
+          std::string command("find /usr/share/icons/ -name *" + sortedProgName[i] + '*');
+
+          FILE *fp;
+
+          fp = popen(command.c_str(), "r");
+
+          const int bufferLen = 256;
+          char res[bufferLen];
+
+          std::string iconPathStr("");
+          if(fgets(res, bufferLen, fp) != NULL)
+          {
+            iconPathStr = std::string(res);
+            if(iconPathStr[iconPathStr.size()-1] == '\n')
+            {
+              iconPathStr = iconPathStr.substr(0,iconPathStr.size()-1);
+            }
+            if(hexagons.icon[next[i]].recreateFromPath(iconPathStr))
+            {
+              hexagons.hasIcon[next[i]] = true;
+            }
+            else
+            {
+              hexagons.hasIcon[next[i]] = false;
+            }
+          }
+          int status = pclose(fp);
+        }
+        else
+        {
+          hexagons.hasIcon[next[i]] = false;
+        }
+      }
     }
 
 }

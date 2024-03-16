@@ -15,6 +15,7 @@
 #include "BloomRenderer.h"
 #include "Color.h"
 #include "Config.h"
+#include "IconRenderer.h"
 
 #define INSERT 0
 #define VISUAL 1
@@ -92,7 +93,9 @@ class Engine
         void visualInputArrows();
 
         bool leftPressed=false,rightPressed=false,upPressed=false,downPressed=false;
+        int iconState = 1; // 0 no, 1 = noColor, 2 = fullColor
         
+        IconRenderer iconRenderer;
 };
 
 #endif

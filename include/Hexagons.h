@@ -3,6 +3,7 @@
 
 #include "Mesh.h"
 #include <vector>
+#include "Texture.h"
 
 class Hexagons
 {
@@ -16,6 +17,8 @@ class Hexagons
         std::vector<float> r, g, b;
         std::vector<float> size;
         std::vector<std::string> str;
+        std::vector<Texture> icon;
+        std::vector<bool> hasIcon;
 
         void useMesh();
         void unuseMesh();
