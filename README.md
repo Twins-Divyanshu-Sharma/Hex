@@ -2,14 +2,10 @@
 A hexagonal application launcher which has vim like navigation for linux users. 
 
 ## Video
-https://github.com/Twins-Diwakar-Sharma/Hex/assets/47611483/0f5f62dc-481e-45b5-a154-e1e447d1d3cb
+https://github.com/Twins-Diwakar-Sharma/Hex/assets/47611483/e441ba2a-63d7-41dc-b1f1-36e9dde45058
 
-
-## Screenshots
-![2022-12-29-142025_1366x768_scrot](https://user-images.githubusercontent.com/47611483/209930901-322ff594-c5ea-4934-98a8-e7900596cccc.png)
-![2022-12-29-142059_1366x768_scrot](https://user-images.githubusercontent.com/47611483/209930922-2ac65f34-382b-4ddd-83c7-9533d54e1bf0.png)
-![firefoxLaunch](https://user-images.githubusercontent.com/47611483/209930932-535040a1-7b34-4480-b4c4-7e3af0c7d6ec.jpg)
-
+## Screenshot
+![Hex](https://github.com/Twins-Diwakar-Sharma/Hex/assets/47611483/5d16285a-e438-414e-ad2c-624f354fcce4)
 
 ## Installtion
 Check requirements section first
@@ -29,10 +25,27 @@ The program has two modes which can be switched using tab: \
 Insert mode ( blue one in screenshots )\
 Visual mode ( orange one in screenshots )
 1. Insert mode: It allows you to write a string in the centeral hexagon, the program will try to find the application you are looking for and present you the top six matching results in the outer hexagons (6 hexagons surrounding the central hexagons)
-2. Visual mode: Main navigation takes place here. In your mind split outer hexagons in two halves, top 3 and bottom 3, then:\
-2.1. The keys k and j are used to switch between upper and lower halves\
-2.2. The key h will shift the selected hexagon to the left hexagon in the half and key l will shift selected hexagon to right hexagon in the half.\
-2.3. Press enter to execute the selected program (works only in visual mode). For example in the 3rd screenshot, pressing enter will launch firefox web browser. Beware it does not executes cli programs like nmtui (poweroff and reboot works though).
+2.   Visual mode: Main navigation takes place here. In your mind split outer hexagons in two halves, top 3 and bottom 3, then:\
+2.1.   The keys k and j are used to switch between upper and lower halves\
+2.2.   The key h will shift the selected hexagon to the left hexagon in the half and key l will shift selected hexagon to right hexagon in the half.\
+2.3.   Press enter to execute the selected program (works only in visual mode). For example in the 3rd screenshot, pressing enter will launch firefox web browser. Beware it does not executes cli programs like nmtui (poweroff and reboot works though).\
+2.4.   You can also use arrow keys for navigation.
+
+## Config File
+Copy config file in res folder of git repo to $HOME/.config/Hex/config (name should remain config).
+The config enables you to customize colors in Hex. The pattern is as follows:\
+variableName = r g b\
+where spaces are neccessary and r g b are color values of red green and blue respectively ranging between 0 and 255
+The following variables can be edited:
+1.  visualColor: It is the color of the outer rings in visual mode.
+2.  insertColor: It is the color of inner ring in insert mode.
+3.  disabledColor: It is color of disabled rings (ie outer rings in insert mode and inner ring in visual mode).
+4.  textColor: It is the color of text while you are typing and of suggestions being displayed in outer ring.
+5.  selectedTextColor: It is the color of text which is selected in visual mode.
+6.  icon: It can only have one of three values:\
+   6.1.    none: It's the default, setting it will show no icons.\
+   6.2.    color: Original icons are displayed with their original colors.\
+   6.3.    neon: Changes icons to look like neon signs. The color of the neon icon is the value textColor when not selected and selectedTextColor when selected.
 
 ## Requirements
 1. This program uses glfw, so make sure you have it in your linux machine. Either download from your package manager or build it from source (visit their official webpage).
@@ -52,14 +65,3 @@ Follow these steps in your cloned repo to install your own fonts.
 5. redo the instructions for Install above and you are done
 
 
-## Customising Neon Colors
-Copy config file in res folder of git repo to $HOME/.config/Hex/config (name should remain config).
-The config enables you to customize colors in Hex. The pattern is as follows:\
-variableName = r g b\
-where spaces are neccessary and r g b are color values of red green and blue respectively ranging between 0 and 255
-The following variables can be edited:
-1.  visualColor: It is the color of the outer rings in visual mode.
-2.  insertColor: It is the color of inner ring in insert mode.
-3.  disabledColor: It is color of disabled rings (ie outer rings in insert mode and inner ring in visual mode).
-4.  textColor: It is the color of text while you are typing and of suggestions being displayed in outer ring.
-5.  selectedTextColor: It is the color of text which is selected in visual mode.
