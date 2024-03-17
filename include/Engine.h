@@ -96,6 +96,8 @@ class Engine
         int iconState = 1; // 0 no, 1 = noColor, 2 = fullColor
         
         IconRenderer iconRenderer;
+
 };
+
 
 #endif

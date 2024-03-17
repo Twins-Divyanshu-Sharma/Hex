@@ -14,7 +14,10 @@ vec4 neonImage()
 {
 
   vec2 step = vec2(1.0/imageWH.x, 1.0/imageWH.y);
-  step = 4.0*step;
+	vec2 gap = imageWH/32.0;
+	gap.x = max(gap.x,1.0);
+	gap.y = max(gap.y,1.0);
+  step = gap*step;
   vec2 offsets[9] = vec2[](
       vec2(-step.x,  step.y), // top-left
       vec2( 0.0f,    step.y), // top-center
