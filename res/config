@@ -3,3 +3,4 @@ visualColor = 255 100 0
 disabledColor = 2 2 2
 textColor = 15 211 201
 selectedTextColor = 0 0 0
+icon = color

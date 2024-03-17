@@ -12,6 +12,7 @@ Engine::Engine() : window()
         disabledColor = colorMap["disabledColor"];        
         textColor = colorMap["textColor"];
         selectedTextColor = colorMap["selectedTextColor"];
+        iconState = config.getIconState();
     }
     else
     {
@@ -176,52 +177,116 @@ void Engine::insertModeInput() {
 
 }
 
-void Engine::visualModeInput()
+void Engine::goLeft()
+{
+  if(side == 0 && selectedHexagon > 1)
+      selectedHexagon--;
+  if(side == 1 && selectedHexagon > 4)
+      selectedHexagon--;
+}
+
+void Engine::goRight()
+{
+  if(side == 0 && selectedHexagon < 3)
+      selectedHexagon++;
+  if(side == 1 && selectedHexagon < 6)
+      selectedHexagon++;
+}
+
+void Engine::goDown()
+{
+  side = (side + 1)%2;
+  int idx = selectedHexagon - 1;
+  idx = (idx + 3)%6;
+  selectedHexagon = idx+1;
+}
+
+void Engine::goUp()
+{
+  side = (side + 1)%2;
+  int idx = selectedHexagon - 1;
+  idx = (idx + 3)%6;
+  selectedHexagon = idx+1;
+}
+
+void Engine::visualInputHJKL()
 {
 
-    if(window.keyPressed(GLFW_KEY_H) && !hPressed)
-    {
-        hPressed = true;
-        if(side == 0 && selectedHexagon > 1)
-            selectedHexagon--;
-        if(side == 1 && selectedHexagon > 4)
-            selectedHexagon--;
-    }
-    if(window.keyReleased(GLFW_KEY_H) && hPressed)
-        hPressed = false;
+  if(window.keyPressed(GLFW_KEY_H) && !hPressed)
+  {
+      hPressed = true;
+      goLeft();
+  }
+  if(window.keyReleased(GLFW_KEY_H) && hPressed)
+      hPressed = false;
 
-    if(window.keyPressed(GLFW_KEY_L) && !lPressed)
-    {
-        lPressed = true;
-        if(side == 0 && selectedHexagon < 3)
-            selectedHexagon++;
-        if(side == 1 && selectedHexagon < 6)
-            selectedHexagon++;
-    }
-    if(window.keyReleased(GLFW_KEY_L) && lPressed)
-        lPressed = false;
+  if(window.keyPressed(GLFW_KEY_L) && !lPressed)
+  {
+      lPressed = true;
+      goRight();
+  }
+  if(window.keyReleased(GLFW_KEY_L) && lPressed)
+      lPressed = false;
 
-    if(window.keyPressed(GLFW_KEY_J) && !jPressed)
-    {
-        jPressed = true;
-        side = (side + 1)%2;
-        int idx = selectedHexagon - 1;
-        idx = (idx + 3)%6;
-        selectedHexagon = idx+1;
-    }
-    if(window.keyReleased(GLFW_KEY_J) && jPressed)
-        jPressed = false;
+  if(window.keyPressed(GLFW_KEY_J) && !jPressed)
+  {
+      jPressed = true;
+      goDown();
+  }
+  if(window.keyReleased(GLFW_KEY_J) && jPressed)
+      jPressed = false;
 
-    if(window.keyPressed(GLFW_KEY_K) && !kPressed)
-    {
-        kPressed = true;
-        side = (side + 1)%2;
-        int idx = selectedHexagon - 1;
-        idx = (idx + 3)%6;
-        selectedHexagon = idx+1;
-    }
-    if(window.keyReleased(GLFW_KEY_K) && kPressed)
-        kPressed = false;
+  if(window.keyPressed(GLFW_KEY_K) && !kPressed)
+  {
+      kPressed = true;
+      goUp();
+  }
+  if(window.keyReleased(GLFW_KEY_K) && kPressed)
+      kPressed = false;
+
+}
+
+void Engine::visualInputArrows()
+{
+
+  if(window.keyPressed(GLFW_KEY_LEFT) && !leftPressed)
+  {
+      leftPressed = true;
+      goLeft();
+  }
+  if(window.keyReleased(GLFW_KEY_LEFT) && leftPressed)
+      leftPressed = false;
+
+  if(window.keyPressed(GLFW_KEY_RIGHT) && !rightPressed)
+  {
+      rightPressed = true;
+      goRight();
+  }
+  if(window.keyReleased(GLFW_KEY_RIGHT) && rightPressed)
+      rightPressed = false;
+
+  if(window.keyPressed(GLFW_KEY_DOWN) && !downPressed)
+  {
+      downPressed = true;
+      goDown();
+  }
+  if(window.keyReleased(GLFW_KEY_DOWN) && downPressed)
+      downPressed = false;
+
+  if(window.keyPressed(GLFW_KEY_UP) && !upPressed)
+  {
+      upPressed = true;
+      goUp();
+  }
+  if(window.keyReleased(GLFW_KEY_UP) && upPressed)
+      upPressed = false;
+
+}
+
+void Engine::visualModeInput()
+{
+    visualInputHJKL();
+    visualInputArrows();
 
     if(window.keyPressed(GLFW_KEY_ENTER) && !enterPressed)
     {
@@ -300,8 +365,12 @@ void Engine::render(double dt)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     screenQuadRenderer.render(screenQuad, worldFBO, pong);
     fontRenderer.render(fontAtlas, hexagons, ortho, textColor, selectedTextColor, renderBgIndex);
-  
-
+     
+    if(iconState > 0) 
+    {
+      iconRenderer.render(hexagons, ortho, textColor, selectedTextColor, renderBgIndex, iconState);
+    }
+    
     window.swapBuffers();
 }
 
@@ -370,6 +439,48 @@ void Engine::updateHexagonStrings()
             hexagons.str[next[i]] = sortedProgName[i];
         else
             hexagons.str[next[i]] = "";
+    }
+
+    if(iconState > 0)
+    {
+      for(unsigned int i=0; i<6; i++)
+      {
+        if(i < sortedProgName.size() )
+        {
+          // find icon 
+          std::string command("find /usr/share/icons/ -name *" + sortedProgName[i] + '*');
+
+          FILE *fp;
+
+          fp = popen(command.c_str(), "r");
+
+          const int bufferLen = 256;
+          char res[bufferLen];
+
+          std::string iconPathStr("");
+          if(fgets(res, bufferLen, fp) != NULL)
+          {
+            iconPathStr = std::string(res);
+            if(iconPathStr[iconPathStr.size()-1] == '\n')
+            {
+              iconPathStr = iconPathStr.substr(0,iconPathStr.size()-1);
+            }
+            if(hexagons.icon[next[i]].recreateFromPath(iconPathStr))
+            {
+              hexagons.hasIcon[next[i]] = true;
+            }
+            else
+            {
+              hexagons.hasIcon[next[i]] = false;
+            }
+          }
+          int status = pclose(fp);
+        }
+        else
+        {
+          hexagons.hasIcon[next[i]] = false;
+        }
+      }
     }
 
 }

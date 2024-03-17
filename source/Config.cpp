@@ -41,11 +41,40 @@ void Config::attainValues()
     while(std::getline(configFile, line))
     {
         std::istringstream iss(line);
-        iss >> name >> equal >> r >> g >> b;
-        Color& color = colorMap[name];
-        color.r = (double)r/255.0;
-        color.g = (double)g/255.0;
-        color.b = (double)b/255.0;
+        iss >> name >> equal;
+        if(name.compare("icon") == 0)
+        {
+          std::string iconValue;
+          iss >> iconValue;
+          if(iconValue.compare("none") == 0)
+          {
+            iconState = 0;  
+          }
+
+          else if(iconValue.compare("neon") == 0)
+          {
+            iconState = 1;  
+          }
+
+          else if(iconValue.compare("color") == 0)
+          {
+            iconState = 2;  
+          }
+
+          else 
+          {
+            iconState = 1; 
+          }
+
+        }
+        else
+        {
+          iss >> r >> g >> b;
+          Color& color = colorMap[name];
+          color.r = (double)r/255.0;
+          color.g = (double)g/255.0;
+          color.b = (double)b/255.0;
+        }
     }
 
     configFile.close();
@@ -72,4 +101,9 @@ bool Config::failedLoading()
 std::map<std::string,Color>& Config::getValues()
 {
     return colorMap;
+}
+
+int Config::getIconState()
+{
+  return iconState;
 }

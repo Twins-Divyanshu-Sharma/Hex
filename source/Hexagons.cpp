@@ -1,6 +1,6 @@
 #include "Hexagons.h"
 
-Hexagons::Hexagons()
+Hexagons::Hexagons() : hasIcon(6,false), icon(6)
 {
     mesh.createHexagonMesh();
     backgroundMesh.createHexagonBackgroundMesh();
