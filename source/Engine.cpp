@@ -386,12 +386,13 @@ void Engine::updateHexagonStrings()
 
     std::string searchString=typedString; 
     std::vector<std::string> progName;
+
+        const int bufferLen = 256;
+        char res[bufferLen];
     for(unsigned int i=0; i<pathList.size(); i++)
     {
         std::string command("find " + pathList[i] + " -name *" + searchString + "*");  
         fp = popen(command.c_str(), "r");
-        const int bufferLen = 256;
-        char res[bufferLen];
         
         while(fgets(res, bufferLen, fp) != NULL)
         {
@@ -445,17 +446,17 @@ void Engine::updateHexagonStrings()
     {
       for(unsigned int i=0; i<6; i++)
       {
+				
+				hexagons.hasIcon[next[i]] = false; // default: dont render icon
+				
         if(i < sortedProgName.size() )
         {
           // find icon 
           std::string command("find /usr/share/icons/ -name *" + sortedProgName[i] + '*');
 
-          FILE *fp;
 
           fp = popen(command.c_str(), "r");
 
-          const int bufferLen = 256;
-          char res[bufferLen];
 
           std::string iconPathStr("");
           if(fgets(res, bufferLen, fp) != NULL)
@@ -469,18 +470,14 @@ void Engine::updateHexagonStrings()
             {
               hexagons.hasIcon[next[i]] = true;
             }
-            else
-            {
-              hexagons.hasIcon[next[i]] = false;
-            }
           }
+
           int status = pclose(fp);
         }
-        else
-        {
-          hexagons.hasIcon[next[i]] = false;
-        }
+
       }
+
     }
 
 }
+
