@@ -103,7 +103,7 @@ void Engine::init()
 
     //fontAtlas.setAtlas("hexFontAtlas");
     //fontAtlas.setAtlas("defaultFontAtlas");
-    fontAtlas.setAtlas("circuitFontAtlas");
+    fontAtlas.setAtlas("cascadiaMonoFontAtlas");
 
     screenQuad.createScreenQuadMesh();
     worldFBO.attachTexture(window.getWidth(), window.getHeight());
