@@ -39,15 +39,15 @@ The config enables you to customize colors in Hex. The pattern is as follows:\
 variableName = r g b\
 where spaces are neccessary and r g b are color values of red green and blue respectively ranging between 0 and 255
 The following variables can be edited:
-1.  visualColor: It is the color of the outer rings in visual mode.
-2.  insertColor: It is the color of inner ring in insert mode.
-3.  disabledColor: It is color of disabled rings (ie outer rings in insert mode and inner ring in visual mode).
-4.  textColor: It is the color of text while you are typing and of suggestions being displayed in outer ring.
-5.  selectedTextColor: It is the color of text which is selected in visual mode.
-6.  icon: It can only have one of three values:\
-      none: It's the default, setting it will show no icons.\
-      color: Original icons are displayed with their original colors.\
-      neon: Changes icons to look like neon signs. The color of the neon icon is the value textColor when not selected and selectedTextColor when selected.
+1.  __visualColor__: It is the color of the outer rings in visual mode.
+2.  __insertColor__: It is the color of inner ring in insert mode.
+3.  __disabledColor__: It is color of disabled rings (ie outer rings in insert mode and inner ring in visual mode).
+4.  __textColor__: It is the color of text while you are typing and of suggestions being displayed in outer ring.
+5.  __selectedTextColor__: It is the color of text which is selected in visual mode.
+6.  __icon__: It can only have one of three values:\
+    *none*: It's the default, setting it will show no icons.\
+    *color*: Original icons are displayed with their original colors.\
+    *neon*: Changes icons to look like neon signs. The color of the neon icon is the value textColor when not selected and selectedTextColor when selected.
 
 ## Requirements
 1. This program uses glfw, so make sure you have it in your linux machine. Either download from your package manager or build it from source (visit their official webpage).
