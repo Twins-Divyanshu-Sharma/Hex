@@ -6,11 +6,13 @@ https://github.com/Twins-Diwakar-Sharma/Hex/assets/47611483/0f74f865-ead8-4bc0-9
 
 
 ## Screenshot
-![Hex](https://github.com/Twins-Diwakar-Sharma/Hex/assets/47611483/5d16285a-e438-414e-ad2c-624f354fcce4)
+![2024-03-23-152706_1366x768_scrot](https://github.com/Twins-Divyanshu-Sharma/Hex/assets/47611597/f8b287f9-87f5-402a-8ced-ebb89bb9de6e)
+
 
 ## Installtion
 Check requirements section first
-1. git clone this repo
+1. git clone this repo![2024-03-23-152706_1366x768_scrot](https://github.com/Twins-Divyanshu-Sharma/Hex/assets/47611597/afe1aa0e-f7d6-4081-aaea-783b69ca4b7d)
+
 2. make
 3. sudo make install
 4. copy config file from res/config to ~/.config/Hex/ with same name i.e. config
